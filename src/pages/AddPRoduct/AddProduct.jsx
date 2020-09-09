@@ -23,7 +23,7 @@ const AddWrapper = styled.form`
 
 function AddProduct() {
   const [formData, setFormData] = useState({
-    nama_barang: "",
+    nama_produk: "",
     harga_beli: 0,
     harga_jual: 0,
     stok: 0,
@@ -59,10 +59,10 @@ function AddProduct() {
 
           <Input
             type="text"
-            name="nama_barang"
-            id="fullname"
+            name="nama_produk"
+            id="nama_produk"
             onChange={handleChange}
-            value={formData.nama_barang}
+            value={formData.nama_produk}
             placeholder="Masukan nama lengkap"
           />
         </FormGroup>
@@ -84,7 +84,7 @@ function AddProduct() {
             type="number"
             min="0"
             name="harga_jual"
-            id="fullname"
+            id="harga_jual"
             onChange={handleChange}
             value={formData.harga_jual}
             placeholder="Masukan nama lengkap"
@@ -96,7 +96,7 @@ function AddProduct() {
             type="number"
             min="0"
             name="stok"
-            id="fullname"
+            id="stok"
             onChange={handleChange}
             value={formData.stok}
             placeholder="Masukan nama lengkap"
