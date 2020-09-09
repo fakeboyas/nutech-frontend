@@ -11,6 +11,7 @@
     "formik": "^2.1.5",
     "material-ui": "^0.20.2",
     "mongo-image-converter": "^1.0.2",
+    "node-encoder": "^2.0.2",
     "object-to-formdata": "^4.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -64,12 +64,7 @@ function Product() {
       </Container>
       <Container>
         <Container1>
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
+          <CardProduct namaProduct={input} />
         </Container1>
       </Container>
       <AddProduct />

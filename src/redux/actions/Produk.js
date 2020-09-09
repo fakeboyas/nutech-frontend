@@ -3,8 +3,8 @@ import { serialize } from "object-to-formdata";
 
 import Swal from "sweetalert2";
 
-export const getHouse = () => async (dispatch) => {
-  let url = "localhost:6007/produk";
+export const getProduct = () => async (dispatch) => {
+  let url = "http://localhost:6007/produk";
 
   let options = {
     method: "GET",
@@ -21,27 +21,6 @@ export const getHouse = () => async (dispatch) => {
     payload: results.data,
   });
 };
-
-// export const addProduct = (formData, history) => async (dispatch) => {
-//   try {
-//     const url = "localhost:6007/produk/upload";
-
-//     const options = {
-//       method: "POST",
-//       body: JSON.stringify(formData),
-//       headers: {
-//         "Content-type": "application/json",
-//       },
-//     };
-
-//     const response = await fetch(url, options);
-//     // eslint-disable-next-line
-//     const result = await response.json();
-//     history.push("/produk");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const addProduct = (formData, history) => async () => {
   try {
