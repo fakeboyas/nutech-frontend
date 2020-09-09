@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Convert } from "mongo-image-converter";
+import Swal from "sweetalert2";
 
 const AddWrapper = styled.form`
   width: 600px;
@@ -27,23 +29,32 @@ function AddProduct() {
     harga_beli: 0,
     harga_jual: 0,
     stok: 0,
-    foto_barang: {
-      data: "",
-      type: "",
-    },
+    foto_barang: "",
   });
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    dispatch(addProduct(formData, history));
+    if (
+      formData.nama_produk === "" ||
+      formData.harga_beli === 0 ||
+      formData.harga_jual === 0 ||
+      formData.stok === 0 ||
+      formData.foto_barang === ""
+    ) {
+      Swal.fire({
+        title: "Form Tidak Boleh Kosong",
+        text: "",
+        icon: "error",
+      });
+    } else {
+      dispatch(addProduct(formData, history));
+    }
   };
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-
   console.log(formData);
 
   return (
@@ -103,21 +114,32 @@ function AddProduct() {
           />
         </FormGroup>
         <FormGroup style={{ textAlign: "left" }}>
-          <div className="file has-name">
+          <div className="">
             <label>Upload Foto</label>
             <br />
             <label className="file-label">
               <input
                 className="file-input"
                 type="file"
-                name="foto_barang"
-                onChange={handleChange}
+                tytle=""
+                accept="image/jpeg, image/png"
+                name="image"
+                onChange={async (event) => {
+                  if (event.target.files[0].size > 100000) {
+                    Swal.fire({
+                      title: "File tidak boleh lebih dari 100kb",
+                      text: "",
+                      icon: "error",
+                    });
+                    event.target.value = null;
+                  } else {
+                    setFormData({
+                      ...formData,
+                      foto_barang: await Convert(event.target.files[0]),
+                    });
+                  }
+                }}
               />
-              <span className="file-cta">
-                <span className="file-icon">
-                  <i className="fas fa-upload"></i>
-                </span>
-              </span>
             </label>
           </div>
         </FormGroup>
