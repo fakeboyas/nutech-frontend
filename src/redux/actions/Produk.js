@@ -73,3 +73,35 @@ export const addProduct = (formData, history) => async () => {
     });
   }
 };
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    };
+
+    const response = await fetch(
+      `http://localhost:6007/produk/remove/${id}`,
+      options
+    );
+    const result = await response.json();
+
+    if (response.status === 200) {
+      Swal.fire({
+        icon: "success",
+        title: "House is deleted",
+      });
+      dispatch(getProduct());
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: result.message,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { getProduct } from "../../redux/actions";
+import { getProduct, deleteProduct } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { decode } from "node-encoder";
+import Swal from "sweetalert2";
 
 const Card = styled.div`
   display: flex;
@@ -34,6 +33,10 @@ const CardBody = styled.div`
 function CardProduct(namaProduct) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.product);
+
+  const handleDelete = () => {
+    dispatch(deleteProduct());
+  };
 
   useEffect(() => {
     // if (namaProduct !== "") {
@@ -67,7 +70,25 @@ function CardProduct(namaProduct) {
                   <p>Stok : {item.stok}</p>
                 </div>
                 <div>
-                  <button className="btn btn-danger rounded-pill font-weight-bold">
+                  <button
+                    onClick={() =>
+                      // dispatch(deleteProduct(item._id));
+                      Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data tidak dapat kembali setelah dihapus!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          dispatch(deleteProduct(item._id));
+                        }
+                      })
+                    }
+                    className="btn btn-danger rounded-pill font-weight-bold"
+                  >
                     Hapus Barang
                   </button>
                 </div>
