@@ -1,6 +1,4 @@
 import { GET_PRODUCT } from "./types";
-import { serialize } from "object-to-formdata";
-
 import Swal from "sweetalert2";
 
 export const getProduct = () => async (dispatch) => {
@@ -56,7 +54,8 @@ export const addProduct = (formData, history) => async () => {
       });
 
       setTimeout(() => {
-        window.history.back();
+        history.push("/produk");
+        window.location.reload();
       }, 3000);
     } else {
       Swal.fire({
@@ -104,4 +103,23 @@ export const deleteProduct = (id) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const filterProduct = (namaProduct) => async (dispatch) => {
+  let url = `http://localhost:6007/produk/nama_produk/?product=${namaProduct}`;
+
+  let options = {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+
+  let response = await fetch(url, options);
+  let results = await response.json();
+
+  dispatch({
+    type: GET_PRODUCT,
+    payload: results,
+  });
 };

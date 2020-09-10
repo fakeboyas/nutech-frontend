@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { getProduct, deleteProduct } from "../../redux/actions";
+import { getProduct, deleteProduct, filterProduct } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
@@ -30,26 +30,21 @@ const CardBody = styled.div`
   background: lightgrey;
 `;
 
-function CardProduct(namaProduct) {
+function CardProduct(props) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.product);
 
-  const handleDelete = () => {
-    dispatch(deleteProduct());
-  };
-
   useEffect(() => {
-    // if (namaProduct !== "") {
-    //   // dispatch(searchSpeakerByName(namaProduct));
-    //   console.log("aku");
-    // } else {
-    dispatch(getProduct());
-    // }
-    //eslint-disable-next-line
-  }, [namaProduct]);
+    if (props.namaProduct !== "") {
+      dispatch(filterProduct(props.namaProduct));
+    } else {
+      dispatch(getProduct());
+    }
+    // eslint-disable-next-line
+  }, [props.namaProduct]);
   return (
     <>
-      {data !== null ? (
+      {data !== undefined && data !== null ? (
         data.map((item) => {
           return (
             <Card key={item._id}>

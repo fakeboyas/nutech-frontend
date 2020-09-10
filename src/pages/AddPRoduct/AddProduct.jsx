@@ -4,7 +4,6 @@ import { addProduct } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FormGroup, Label, Input } from "reactstrap";
-import { Link } from "react-router-dom";
 import { Convert } from "mongo-image-converter";
 import Swal from "sweetalert2";
 
@@ -33,8 +32,8 @@ function AddProduct() {
   });
   const history = useHistory();
   const dispatch = useDispatch();
+  event.preventDefault();
   const handleSubmit = async (event) => {
-    event.preventDefault();
     if (
       formData.nama_produk === "" ||
       formData.harga_beli === 0 ||
@@ -74,7 +73,7 @@ function AddProduct() {
             id="nama_produk"
             onChange={handleChange}
             value={formData.nama_produk}
-            placeholder="Masukan nama lengkap"
+            placeholder="Masukan nama barang"
           />
         </FormGroup>
         <FormGroup style={{ textAlign: "left" }}>

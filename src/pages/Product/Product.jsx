@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CardProduct from "../../components/CardProduct/CardProduct";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import AddProduct from "../../components/AddProduct/AddProduct";
 
 const Container1 = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row;1
   width: 1000px;
   max-width: 100%;
   flex-wrap: wrap;
@@ -32,8 +29,6 @@ const SearchWrapper = styled.div`
 `;
 
 function Product() {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const [input, setInput] = useState("");
 
   const handleChange = (event) => {
@@ -51,15 +46,6 @@ function Product() {
             aria-label="Search"
             onChange={handleChange}
           />
-          <button
-            style={{ width: "200px" }}
-            type="button"
-            className="btn btn-sm btn-primary font-weight-bold rounded-pill"
-            data-toggle="modal"
-            data-target="#addProduct"
-          >
-            Tambah Barang
-          </button>
         </SearchWrapper>
       </Container>
       <Container>
@@ -67,7 +53,6 @@ function Product() {
           <CardProduct namaProduct={input} />
         </Container1>
       </Container>
-      <AddProduct />
     </div>
   );
 }
