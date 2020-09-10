@@ -32,8 +32,9 @@ function AddProduct() {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  event.preventDefault();
+
   const handleSubmit = async (event) => {
+    event.preventDefault();
     if (
       formData.nama_produk === "" ||
       formData.harga_beli === 0 ||
